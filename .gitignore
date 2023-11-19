@@ -3,3 +3,5 @@ requirements.txt
 
 # Ignore venv folder
 venv/
+/Wine/
+/Wine_monitor/
