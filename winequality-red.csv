@@ -1,4 +1,4 @@
-fixed acidity,residual sugar,free sulfur dioxide,total sulfur dioxide,alcohol,quality
+fixed_acidity,residual_sugar,free_sulfur_dioxide,total_sulfur_dioxide,alcohol,quality
 7.4,1.9,11,34,9.4,5
 7.8,2.6,25,67,9.8,5
 7.8,2.3,15,54,9.8,5
