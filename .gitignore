@@ -1,0 +1,5 @@
+# Ignore requirements.txt file
+requirements.txt
+
+# Ignore venv folder
+venv/
