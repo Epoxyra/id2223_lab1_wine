@@ -43,7 +43,7 @@ demo = gr.Interface(
     description="Experiment with different properties of wine to predict what is its quality.",
     allow_flagging="never",
     inputs=[
-        gr.inputs.Textbox(default="white", label="wine color (red or white)"),
+        gr.inputs.Number(default=1, label="wine color (1 for red, 0 for white)"),
         gr.inputs.Number(default=8.0, label="fixed acidity (g/L)"),
         gr.inputs.Number(default=8.0, label="volatile acidity (g/L)"),
         gr.inputs.Number(default=8.0, label="citric acid (g/L)"),
