@@ -6,9 +6,6 @@ import joblib
 import pandas as pd
 import os
 
-os.environ['HOPSWORKS_API_KEY'] = 'cKV1tKzokpcwviY6.uP2qcFV2wWI8xxNu1I0UxyeqlRHqSEanLgKFjf5R1ypSy8A3AUnRkRpi0R9Gc5l0'
-
-""
 project = hopsworks.login()
 fs = project.get_feature_store()
 
@@ -35,6 +32,9 @@ def wine(type, fixed_acidity, volatile_acidity, citric_acid, residual_sugar, chl
     # the first element.
     #     print("Res: {0}").format(res)
     print(res)
+    wine_url = "https://raw.githubusercontent.com/Epoxyra/id2223_lab1_wine/main/images/" + res[0] + ".jpg"
+    img = Image.open(requests.get(wine_url, stream=True).raw)            
+    return img
 
 
 demo = gr.Interface(
