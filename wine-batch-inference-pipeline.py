@@ -36,19 +36,19 @@ def g():
     
     y_pred = model.predict(batch_data)
     #print(y_pred)
-    offset = 1
+    offset = 20
     wine = y_pred[y_pred.size-offset]
     wine_url = "https://raw.githubusercontent.com/Epoxyra/id2223_lab1_wine/main/images/" + wine + ".jpg"
     print("wine predicted: " + wine)
     img = Image.open(requests.get(wine_url, stream=True).raw)
     img.save("./latest_wine.png")
-    dataset_api = project.get_dataset_api()    
+    dataset_api = project.get_dataset_api()
     dataset_api.upload("./latest_wine.png", "Resources/images", overwrite=True)
    
-    wine_fg = fs.get_feature_group(name="wine", version=1)
+    wine_fg = fs.get_feature_group(name="wine", version=2)
     df = wine_fg.read()
     #print(df)
-    label = df.iloc[-offset]["quality"]
+    label = df.iloc[-offset]["quality_label"]
     label_url = "https://raw.githubusercontent.com/Epoxyra/id2223_lab1_wine/main/images/" + label + ".jpg"
     print("wine actual: " + label)
     img = Image.open(requests.get(label_url, stream=True).raw)            
