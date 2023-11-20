@@ -27,11 +27,11 @@ def g():
     fs = project.get_feature_store()
     
     mr = project.get_model_registry()
-    model = mr.get_model("iris_model", version=1)
+    model = mr.get_model("wine_model", version=1)
     model_dir = model.download()
-    model = joblib.load(model_dir + "/iris_model.pkl")
+    model = joblib.load(model_dir + "/wine_model.pkl")
     
-    feature_view = fs.get_feature_view(name="iris", version=1)
+    feature_view = fs.get_feature_view(name="wine", version=1)
     batch_data = feature_view.get_batch_data()
     
     y_pred = model.predict(batch_data)
@@ -48,8 +48,8 @@ def g():
     wine_fg = fs.get_feature_group(name="wine", version=1)
     df = wine_fg.read()
     #print(df)
-    label = df.iloc[-offset]["variety"]
-    label_url = "https://raw.githubusercontent.com/featurestoreorg/serverless-ml-course/main/src/01-module/assets/" + label + ".png"
+    label = df.iloc[-offset]["quality"]
+    label_url = "https://raw.githubusercontent.com/Epoxyra/id2223_lab1_wine/main/images/" + label + ".jpg"
     print("wine actual: " + label)
     img = Image.open(requests.get(label_url, stream=True).raw)            
     img.save("./actual_wine.png")
