@@ -31,7 +31,7 @@ def g():
     model_dir = model.download()
     model = joblib.load(model_dir + "/wine_model.pkl")
     
-    feature_view = fs.get_feature_view(name="wine", version=1)
+    feature_view = fs.get_feature_view(name="wine", version=2)
     batch_data = feature_view.get_batch_data()
     
     y_pred = model.predict(batch_data)
