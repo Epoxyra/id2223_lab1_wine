@@ -12,33 +12,42 @@ if LOCAL == False:
        g()
 
 
-def generate_wine(name, sepal_len_max, sepal_len_min, sepal_width_max, sepal_width_min,
-                    petal_len_max, petal_len_min, petal_width_max, petal_width_min):
+def generate_wine(quality, fixed_acidity_min, fixed_acidity_max, volatile_acidity_min, volatile_acidity_max,
+                    citric_acid_min, citric_acid_max, residual_sugar_min, residual_sugar_max,
+                    chlorides_min, chlorides_max, free_sulfur_dioxide_min, free_sulfur_dioxide_max,
+                    density_min, density_max, ph_min, ph_max, sulphates_min, sulphates_max,
+                    alcohol_min, alcohol_max):
     """
-    Returns a single wine quality as a single row in a DataFrame
+    Returns a single wine as a single row in a DataFrame
     """
     import pandas as pd
     import random
 
-    df = pd.DataFrame({ "sepal_length": [random.uniform(sepal_len_max, sepal_len_min)],
-                       "sepal_width": [random.uniform(sepal_width_max, sepal_width_min)],
-                       "petal_length": [random.uniform(petal_len_max, petal_len_min)],
-                       "petal_width": [random.uniform(petal_width_max, petal_width_min)]
+    df = pd.DataFrame({ "type": random.choice([0, 1]),
+                        "fixed_acidity": [random.uniform(fixed_acidity_min, fixed_acidity_max)],
+                        "volatile_acidity": [random.uniform(volatile_acidity_min, volatile_acidity_max)],
+                        "citric_acid": [random.uniform(citric_acid_min, citric_acid_max)],
+                        "residual_sugar": [random.uniform(residual_sugar_min, residual_sugar_max)],
+                        "chlorides": [random.uniform(chlorides_min, chlorides_max)],
+                        "free_sulfur_dioxide": [random.uniform(free_sulfur_dioxide_min, free_sulfur_dioxide_max)],
+                        "density": [random.uniform(density_min, density_max)],
+                        "ph": [random.uniform(ph_min, ph_max)],
+                        "sulphates": [random.uniform(sulphates_min, sulphates_max)],
+                        "alcohol": [random.uniform(alcohol_min, alcohol_max)]
                       })
-    df['variety'] = name
+    df['quality_label'] = quality
     return df
 
-
-def get_random_quality_wine():
+def get_random_wine():
     """
-    Returns a DataFrame containing one random wine quality
+    Returns a DataFrame containing one random wine
     """
     import pandas as pd
     import random
 
-    good_wine_df = generate_wine("good_wine", 8, 5.5, 3.8, 2.2, 7, 4.5, 2.5, 1.4)
-    medium_wine_df = generate_wine("medium_wine", 7.5, 4.5, 3.5, 2.1, 3.1, 5.5, 1.8, 1.0)
-    poor_wine_df =  generate_wine("poor_wine", 6, 4.5, 4.5, 2.3, 1.2, 2, 0.7, 0.3)
+    good_wine_df = generate_wine("good", 3.9, 15.6, 0.08, 0.915, 0, 0.76, 0.8, 19.25, 0.012, 0.358, 3, 108, 0.98711, 1.0032, 2.84, 3.82, 0.22, 1.36, 8.5, 14.2)
+    medium_wine_df = generate_wine("medium", 3.8, 15.9, 0.08, 1.33, 0, 1.66, 0.6, 65.8, 0.009, 0.611, 1, 131, 0.98722, 1.03898, 2.72, 4.01, 0.23, 1.98, 8, 14.9)
+    poor_wine_df =  generate_wine("poor", 4.2, 12.5, 0.11, 1.58, 0, 1, 0.7, 17.55, 0.013, 0.61, 3, 289, 0.9892, 1.001, 2.74, 3.9, 0.25, 2, 8, 13.5)
 
     # randomly pick one of these 3 and write it to the featurestore
     pick_random = random.uniform(0,3)
@@ -62,9 +71,9 @@ def g():
     project = hopsworks.login()
     fs = project.get_feature_store()
 
-    quality_df = get_random_quality_wine()
+    quality_df = get_random_wine()
 
-    quality_fg = fs.get_feature_group(name="wine",version=1)
+    quality_fg = fs.get_feature_group(name="wine",version=2)
     quality_fg.insert(quality_df)
 
 if __name__ == "__main__":
