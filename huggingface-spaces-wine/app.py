@@ -4,7 +4,6 @@ import requests
 import hopsworks
 import joblib
 import pandas as pd
-import os
 
 project = hopsworks.login()
 fs = project.get_feature_store()
@@ -43,17 +42,17 @@ demo = gr.Interface(
     description="Experiment with different properties of wine to predict what is its quality.",
     allow_flagging="never",
     inputs=[
-        gr.inputs.Number(default=1, label="wine color (1 for red, 0 for white)"),
-        gr.inputs.Number(default=8.0, label="fixed acidity (g/L)"),
-        gr.inputs.Number(default=8.0, label="volatile acidity (g/L)"),
-        gr.inputs.Number(default=8.0, label="citric acid (g/L)"),
-        gr.inputs.Number(default=2.5, label="residual sugar (g/L)"),
-        gr.inputs.Number(default=2.5, label="chlorides (g/L)"),
-        gr.inputs.Number(default=16.0, label="free_sulfur_dioxide (mg/l)"),
-        gr.inputs.Number(default=46.0, label="density (g/mL)"),
-        gr.inputs.Number(default=46.0, label="ph"),
-        gr.inputs.Number(default=46.0, label="sulphates (mg/L)"),
-        gr.inputs.Number(default=10.0, label="alcohol(°)"),
+        gr.Number(value=1, label="wine color (1 for red, 0 for white)"),
+        gr.Number(value=8.0, label="fixed acidity (g/L)"),
+        gr.Number(value=8.0, label="volatile acidity (g/L)"),
+        gr.Number(value=8.0, label="citric acid (g/L)"),
+        gr.Number(value=2.5, label="residual sugar (g/L)"),
+        gr.Number(value=2.5, label="chlorides (g/L)"),
+        gr.Number(value=16.0, label="free_sulfur_dioxide (mg/l)"),
+        gr.Number(value=46.0, label="density (g/mL)"),
+        gr.Number(value=46.0, label="ph"),
+        gr.Number(value=46.0, label="sulphates (mg/L)"),
+        gr.Number(value=10.0, label="alcohol(°)"),
     ],
     outputs=gr.Image(type="pil"))
 
